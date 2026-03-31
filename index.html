@@ -122,15 +122,7 @@
         <section id="cv" class="section">
             <span class="page-label">CV</span>
 
-            <!-- EDUCATION (commented out — re-enable when ready) -->
-            <!--
-            <h2>Education</h2>
-            <div class="cv-entry">
-                <div class="cv-entry-head">California Institute of the Arts</div>
-                <div class="cv-entry-sub">Valencia, CA · 2021–2025</div>
-                <div class="cv-entry-body">Music Technology, Interaction, Intelligence and Design + Fine Art Double Major BFA</div>
-            </div>
-            -->
+
 
             <!-- WORK EXPERIENCE (commented out — re-enable when ready) -->
             <!--
@@ -317,6 +309,16 @@
                 <div class="cv-entry-head">Environmental Listening at Camp FR</div>
                 <div class="cv-entry-sub">June 2023</div>
             </div>
+
+                        <!-- EDUCATION (commented out — re-enable when ready) -->
+            
+            <h2>Education</h2>
+            <div class="cv-entry">
+                <div class="cv-entry-head">California Institute of the Arts</div>
+                <div class="cv-entry-sub">Valencia, CA · 2021–2025</div>
+                <div class="cv-entry-body">Music Technology, Interaction, Intelligence and Design + Fine Art Double Major BFA</div>
+            </div>
+        
         </section>
 
         <!-- PRESS ────────────────────────────────────── -->
@@ -910,6 +912,13 @@ window.addEventListener('resize', () => {
                 if (i >= LIMIT) item.classList.toggle('perf-hidden', !expanded);
             });
             btn.textContent = expanded ? 'See less' : 'See more';
+
+            // When collapsing, scroll the group label back into view so the
+            // page doesn't strand the user at the bottom of a shorter list.
+            if (!expanded) {
+                const label = list.previousElementSibling;
+                if (label) label.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         });
 
         list.after(btn);

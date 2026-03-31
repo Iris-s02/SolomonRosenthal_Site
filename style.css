@@ -99,11 +99,11 @@ body {
 
 /* ── SECTIONS ────────────────────────────────────────── */
 .section {
-    padding: 65px 0;
+    padding: 110px 0;
 }
 
 .section + .section {
-    border-top: none;
+    border-top: 2.5px solid #111;
 }
 
 #home.section {
