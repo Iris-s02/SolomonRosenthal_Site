@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solomon Rosenthal</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://gumroad.com/js/gumroad.js" defer></script>
+</head>
+<body>
+
+<div class="site">
+
+    <!-- ── SIDEBAR ──────────────────────────────────── -->
+    <aside class="sidebar">
+        <div class="site-title">
+            <a href="#home">Solomon<br>Rosenthal</a>
+        </div>
+        <nav class="site-nav">
+            <a href="#home">About</a>
+            <a href="#discography">Discography</a>
+            <a href="#software">Software</a>
+            <a href="#cv">CV</a>
+            <a href="#press">Press</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </aside>
+
+    <!-- ── MAIN CONTENT ─────────────────────────────── -->
+    <main class="content">
+
+        <!-- HOME / ABOUT ────────────────────────────── -->
+        <section id="home" class="section">
+            <div class="home-intro">
+                <span class="page-label">About</span>
+                <p>Solomon Rosenthal is a Los Angeles based composer, multi-instrumentalist, music producer, visual artist, and software designer.</p>
+            </div>
+        </section>
+
+        <!-- DISCOGRAPHY ──────────────────────────────── -->
+        <section id="discography" class="section">
+            <span class="page-label">Discography</span>
+
+            <!--
+            ═══════════════════════════════════════════════
+              RELEASES
+              ─────────────────────────────────────────────
+              To add a release: copy one <li> block and
+              update artist, title, year, and platform hrefs.
+            ═══════════════════════════════════════════════ -->
+            <ul class="release-list" id="release-list"></ul>
+        </section>
+
+        <!-- ARTWORK (commented out — re-enable when ready) -->
+        <!--
+        <section id="artwork" class="section">
+            <span class="page-label">Artwork</span>
+            <div id="gallery-container"></div>
+        </section>
+        -->
+
+        <!-- SOFTWARE ─────────────────────────────────── -->
+        <!--
+        ═══════════════════════════════════════════════
+          SOFTWARE / PLUGINS
+          ─────────────────────────────────────────────
+          To add a plugin: copy one <li> block and fill
+          in the name, description, price, and Gumroad href.
+          Price: use "Free" or "$X.XX"
+        ═══════════════════════════════════════════════ -->
+        <section id="software" class="section">
+            <span class="page-label">Software</span>
+
+            <ul class="product-list">
+                <li class="product-item">
+                    <div class="product-row">
+                        <a class="product-link product-link-external" href="https://irisdevices.gumroad.com/l/euclidiangate" target="_blank" rel="noopener">Euclidian Gate</a>
+                        <span class="product-price">Free</span>
+                    </div>
+                    <p class="product-desc">A gate sequencer built on the Euclidian algorithm, which distributes patterns evenly across a set number of steps. Includes a Rotate parameter and preset storage.</p>
+                </li>
+                <li class="product-item">
+                    <div class="product-row">
+                        <a class="product-link product-link-external" href="https://irisdevices.gumroad.com/l/MCLFO" target="_blank" rel="noopener">MCLFO</a>
+                        <span class="product-price">Free</span>
+                    </div>
+                    <p class="product-desc">A Max for Live modulation device with nine sine wave LFOs, each independently mappable to any parameter in Ableton Live.</p>
+                </li>
+                <li class="product-item">
+                    <div class="product-row">
+                        <a class="product-link product-link-external" href="https://irisdevices.gumroad.com/l/chaoticresonator" target="_blank" rel="noopener">Chaotic Resonator</a>
+                        <span class="product-price">Free</span>
+                    </div>
+                    <p class="product-desc">A Max for Live audio effect for experimental sound design featuring four delay lines patched into themselves, producing unpredictable resonant feedback textures.</p>
+                </li>
+                <li class="product-item">
+                    <div class="product-row">
+                        <a class="product-link product-link-external" href="https://irisdevices.gumroad.com/l/meshvisualizer" target="_blank" rel="noopener">Mesh Visualizer</a>
+                        <span class="product-price">Free</span>
+                    </div>
+                    <p class="product-desc">An audio-reactive Max for Live device that uses audio from Ableton Live to modulate a generative mesh lattice, creating real-time visuals from any audio source.</p>
+                </li>
+                <li class="product-item">
+                    <div class="product-row">
+                        <a class="product-link product-link-external" href="https://irisdevices.gumroad.com/l/fractaldream" target="_blank" rel="noopener">Fractal Dream</a>
+                        <span class="product-price">Free</span>
+                    </div>
+                    <p class="product-desc">An Ableton visualizer inspired by the fractal dream strange attractor. Animations are triggered by incoming MIDI notes with four parameters to shape the resulting image.</p>
+                </li>
+                <li class="product-item">
+                    <div class="product-row">
+                        <a class="product-link product-link-external" href="https://irisdevices.gumroad.com/l/pitchblur" target="_blank" rel="noopener">PitchBlur</a>
+                        <span class="product-price">$7.99</span>
+                    </div>
+                    <p class="product-desc">An FFT-based spectral multi-effect Max for Live device. Includes spectral denoise and deharmonic filters alongside spectral blur, gate, and pitch shift.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- CV ───────────────────────────────────────── -->
+        <section id="cv" class="section">
+            <span class="page-label">CV</span>
+
+            <!-- EDUCATION (commented out — re-enable when ready) -->
+            <!--
+            <h2>Education</h2>
+            <div class="cv-entry">
+                <div class="cv-entry-head">California Institute of the Arts</div>
+                <div class="cv-entry-sub">Valencia, CA · 2021–2025</div>
+                <div class="cv-entry-body">Music Technology, Interaction, Intelligence and Design + Fine Art Double Major BFA</div>
+            </div>
+            -->
+
+            <!-- WORK EXPERIENCE (commented out — re-enable when ready) -->
+            <!--
+            <h2>Work Experience</h2>
+            <div class="cv-entry">
+                <div class="cv-entry-head">California Institute of the Arts — Teaching Assistant</div>
+                <div class="cv-entry-sub">September 2023 – Present</div>
+                <div class="cv-entry-body">Assisted professors and taught classes related to music production, programming, and electrical engineering including Intro to Sound Production, Interface Design, and Intro to Computer Music.</div>
+            </div>
+            <div class="cv-entry">
+                <div class="cv-entry-head">Oakwood Secondary School — Teacher</div>
+                <div class="cv-entry-sub">September 2022 – January 2024</div>
+                <div class="cv-entry-body">Taught two classes, Experiments in Audio-Visual Art and Electronic Music Making, with topics including Ableton Live production, video art, and electronics engineering.</div>
+            </div>
+            <div class="cv-entry">
+                <div class="cv-entry-head">Iris Ipsum — Founder</div>
+                <div class="cv-entry-sub">January 2020 – Present</div>
+                <div class="cv-entry-body">Freelance audio programming and electrical engineering for audio software and hardware, with over 6,000 sales worldwide.</div>
+            </div>
+            <div class="cv-entry">
+                <div class="cv-entry-head">Maryann Thompson Architects — Design Assistant</div>
+                <div class="cv-entry-sub">January 2019 – September 2021</div>
+                <div class="cv-entry-body">Aided in design for various architectural projects including the Brighton Community Pool and Olin College of Engineering President's Housing.</div>
+            </div>
+            -->
+
+
+            <!-- SKILLS (commented out — re-enable when ready) -->
+            <!--
+            <h2>Skills</h2>
+            <ul class="skills-list">
+                <li>Music Production, Mixing and Mastering</li>
+                <li>Audio Software Development with Max-MSP and C++ JUCE</li>
+                <li>Web Development with HTML, CSS, and JavaScript</li>
+                <li>Graphic Design and Media Development</li>
+                <li>Embedded Electronics Engineering</li>
+                <li>Architectural Design</li>
+                <li>Digital Fabrication</li>
+                <li>Construction</li>
+                <li>MIG Welding</li>
+                <li>Computer Aided Design (CAD)</li>
+            </ul>
+            -->
+
+            <!-- PERFORMANCES -->
+            <!--
+            ═══════════════════════════════════════════════
+              SELECTED PERFORMANCES
+              ─────────────────────────────────────────────
+              Three sub-groups: As Iris Ipsum / As Glyss /
+              As Other Projects.
+              To add a date: add a new <li> under the
+              correct group. Format: MM.DD.YY · Venue, City
+              To move entries between groups, cut/paste <li>s.
+            ═══════════════════════════════════════════════ -->
+            <h2>Selected Performances</h2>
+
+            <!-- ── As Iris Ipsum ─────────────────────── -->
+            <h3 class="perf-group-label">As Iris Ipsum</h3>
+            <ul class="perf-list">
+                <li>9.13.25 · Heavy Manners, Los Angeles, CA</li>
+                <li>6.4.25 · London, UK</li>
+                <li>6.7.25 · Sheffield, UK</li>
+                <li>6.8.25 · Cornwall, UK</li>
+                <li>5.10.25 · Renegade, Los Angeles, CA</li>
+                <li>5.17.25 · Topanga Outdoor Show, Los Angeles, CA</li>
+                <li>5.18.25 · Water and Power, Los Angeles, CA</li>
+                <li>4.17.25 · Continuum, Los Angeles, CA</li>
+                <li>3.21.25 · Renegade, Los Angeles, CA</li>
+                <li>3.2.25 · Dublab Guest Set</li>
+                <li>2.28.25 · Heavy Manners, Los Angeles, CA</li>
+                <li>12.28.24 · The Broadway, NYC</li>
+                <li>12.8.24 · Griffith Park, Los Angeles, CA</li>
+                <li>11.10.24 · Griffith Park, Los Angeles, CA w/ Pent, Jake Muir, C_Robo, Celes +Rafa</li>
+                <li>10.13.24 · Griffith Park Old Zoo, Los Angeles, CA</li>
+                <li>9.14.24 · Other Places Art Fair, San Pedro, CA</li>
+                <li>9.5.24 · Living Gallery, Brooklyn, NY</li>
+                <li>8.23.24 · Scorcher Fundraiser, Somerville, MA</li>
+                <li>7.28.24 · Grey Space in the Middle w/ Index Music, The Hague, NL</li>
+                <li>7.26.24 · George Tavern, London, UK w/ Conna Haraway, Stone, and Michael the Painter</li>
+                <li>7.19.24 · De Sering, Amsterdam, NL</li>
+                <li>7.12.24 · Acud Macht Neu, Berlin, DE w/ Windowseeker, TRNGS, Stress Actual, Ben Bondy &amp; Genus Aix</li>
+                <li>6.15.24 · While on Earth, Denver, CO</li>
+                <li>6.12.24 · dance or don't @zuzu, Cambridge, MA</li>
+                <li>4.13.24 · The Open Book, Los Angeles, CA</li>
+                <li>4.6.24 · Spiky World, Los Angeles, CA</li>
+                <li>3.15.24 · Renegade, Los Angeles, CA</li>
+                <li>2.29.24 · Arcana, San Diego, CA</li>
+                <li>1.28.24 · Secret Location, Los Angeles, CA</li>
+                <li>1.26.24 · PSstudio, Los Angeles, CA</li>
+                <li>1.25.24 · No House, Los Angeles, CA</li>
+                <li>1.10.24 · Silverlake Lounge, Los Angeles, CA</li>
+                <li>1.3.24 · Hart Bar, NYC, NY</li>
+                <li>12.18.23 · Living Gallery, NYC, NY</li>
+                <li>12.4.23 · Aeffect Radio</li>
+                <li>11.30.23 · Ursa Live</li>
+                <li>11.18.23 · Renegade, San Diego, CA</li>
+                <li>11.9.23 · Church of Fun, Los Angeles, CA</li>
+                <li>11.6.23 · Coaxial, Los Angeles, CA</li>
+                <li>11.4.23 · Topanga Canyon, Los Angeles, CA</li>
+                <li>10.21.23 · Samhain, California City, CA</li>
+                <li>10.8.23 · Griffith Park, Los Angeles, CA</li>
+                <li>10.7.23 · Secret Location, Los Angeles, CA</li>
+                <li>9.16.23 · Griffith Park, Los Angeles, CA</li>
+                <li>9.9.23 · The Newton, Los Angeles, CA</li>
+                <li>9.7.23 · Obriens, Boston, MA</li>
+                <li>9.5.23 · Hart Bar, Brooklyn, NY</li>
+                <li>8.13.23 · The Department, Marlboro, MA</li>
+                <li>7.21.23 · Trendy Shit Town, Boston, MA</li>
+                <li>7.11.23 · Living Gallery, Brooklyn, NY</li>
+                <li>7.8.23 · Newtown Radio</li>
+                <li>7.6.23 · Heaven Can Wait, NYC, NY</li>
+                <li>7.2.23 · Living Gallery, Brooklyn, NY</li>
+                <li>5.26.23 · Renegade, Los Angeles, CA</li>
+                <li>5.6.23 · Renegade, Los Angeles, CA</li>
+                <li>5.5.23 · Broad Art Center, Los Angeles, CA</li>
+                <li>4.27.23 · Kchung Radio, Los Angeles, CA</li>
+                <li>4.20.23 · Massive, Los Angeles, CA</li>
+                <li>4.18.23 · Arborescence, Los Angeles, CA</li>
+                <li>3.10.23 · The Smell, Los Angeles, CA</li>
+                <li>2.10.23 · The Smell, Los Angeles, CA</li>
+                <li>2.4.23 · Non Plus Ultra, Los Angeles, CA</li>
+                <li>1.20.23 · The Smell, Los Angeles, CA</li>
+                <li>1.11.23 · 🐍🕳 EP Release, Los Angeles, CA</li>
+                <li>1.7.23 · The Firehouse, Worcester, MA</li>
+                <li>1.6.23 · The Lilypad Inman, Boston, MA</li>
+                <li>1.5.23 · NEB Collective, New Haven, CT</li>
+                <li>1.4.23 · News Cafe, Providence, RI</li>
+                <li>1.3.23 · Purgatory BK, NYC, NY</li>
+                <li>12.10.22 · Oracle Tavern, Los Angeles, CA</li>
+                <li>12.6.22 · Genghis Cohen, Los Angeles, CA</li>
+                <li>11.12.22 · Fall Festival, Los Angeles, CA</li>
+                <li>10.16.22 · Silverlake Lounge, Los Angeles, CA</li>
+                <li>10.9.22 · Woodley Park w/ Palacio Palace, Los Angeles, CA</li>
+                <li>7.9.22 · Star Market Bathroom, Boston, MA</li>
+                <li>7.2.22 · Acud Macht Neu, Berlin, DE</li>
+                <li>4.22.22 · No House, Los Angeles, CA</li>
+                <li>2.19.22 · Ren Rave, California City, CA</li>
+                <li>2.5.22 · No House, Los Angeles, CA</li>
+            </ul>
+
+            <!-- ── As Glyss ──────────────────────────── -->
+            <h3 class="perf-group-label">As Glyss</h3>
+            <ul class="perf-list">
+                <li>4.17.26 · The Woodbridge, Los Angeles, CA</li>
+                <li>4.3.26 · Redwood, Los Angeles, CA</li>
+                <li>3.26.26 · The Woodbridge, Los Angeles, CA</li>
+                <li>3.16.26 · Backyard Party, Los Angeles, CA</li>
+                <li>2.28.26 · The Woodbridge, Los Angeles, CA</li>
+                <li>2.5.26 · Old Towne Pub, Los Angeles, CA</li>
+                <li>1.21.26 · Oblivion, Los Angeles, CA</li>
+                <li>4.25.26 · Fat City, Los Angeles, CA</li>
+                <li>4.18.26 · Egg Squared, Los Angeles, CA</li>
+                <li>12.16.25 · The Airliner, Los Angeles, CA</li>
+                <li>11.18.25 · LAX, Los Angeles, CA</li>
+                <li>10.5.25 · Harvard and Stone, Los Angeles, CA</li>
+                <li>9.24.25 · Oblivion, Los Angeles, CA</li>
+                <li>7.3.25 · Zebulon, Los Angeles, CA</li>
+                <li>3.29.25 · Birdcage Cafe, San Bernardino, CA</li>
+                <li>3.22.25 · Church of Fun, Los Angeles, CA</li>
+            </ul>
+
+            <!-- ── As Other Projects ─────────────────── -->
+            <h3 class="perf-group-label">As Other Projects</h3>
+            <ul class="perf-list">
+                <li>3.7.26 · The Observatory Santa Ana with Ariella</li>
+            </ul>
+
+
+            <!-- EXHIBITIONS -->
+            <h2>Selected Exhibitions</h2>
+            <div class="cv-entry">
+                <div class="cv-entry-head">Material Emission</div>
+                <div class="cv-entry-sub">Stevenson-Blanche Gallery · April 13–20, 2024</div>
+            </div>
+            <div class="cv-entry">
+                <div class="cv-entry-head">Rituals Machines Bodies</div>
+                <div class="cv-entry-sub">Stevenson-Blanche Gallery · April 13–20, 2023</div>
+            </div>
+
+            <!-- RESIDENCIES -->
+            <h2>Residencies</h2>
+            <div class="cv-entry">
+                <div class="cv-entry-head">Environmental Listening at Camp FR</div>
+                <div class="cv-entry-sub">June 2023</div>
+            </div>
+        </section>
+
+        <!-- PRESS ────────────────────────────────────── -->
+        <section id="press" class="section">
+            <span class="page-label">Press</span>
+
+            <!--
+            ═══════════════════════════════════════════════
+              PRESS ITEMS
+              ─────────────────────────────────────────────
+              To add a press item: add an object to the
+              pressItems array in the <script> below.
+            ═══════════════════════════════════════════════ -->
+            <ul class="press-list" id="press-list"></ul>
+        </section>
+
+        <!-- CONTACT ──────────────────────────────────── -->
+        <section id="contact" class="section">
+            <span class="page-label">Contact</span>
+
+            <div class="contact-layout">
+
+                <!-- Social links -->
+                <div class="contact-social">
+                    <a class="social-link" href="https://www.instagram.com/irisipsum" target="_blank" rel="noopener">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <circle cx="12" cy="12" r="4.5"/>
+                            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+                        </svg>
+                        <span>@irisipsum</span>
+                    </a>
+                    <a class="social-link" href="https://www.instagram.com/__glyss" target="_blank" rel="noopener">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <circle cx="12" cy="12" r="4.5"/>
+                            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+                        </svg>
+                        <span>@__glyss</span>
+                    </a>
+                </div>
+
+                <!-- Contact form -->
+                <!--
+                ═══════════════════════════════════════════════
+                  CONTACT FORM
+                  ─────────────────────────────────────────────
+                  Uses Formspree for submission. Replace
+                  YOUR_FORM_ID with your ID from formspree.io.
+                  Sign up free at https://formspree.io
+                ═══════════════════════════════════════════════ -->
+                <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="form-group">
+                        <label class="form-label" for="contact-name">Name</label>
+                        <input class="form-input" type="text" id="contact-name" name="name" autocomplete="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contact-email">Email</label>
+                        <input class="form-input" type="email" id="contact-email" name="email" autocomplete="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="contact-message">Message</label>
+                        <textarea class="form-input form-textarea" id="contact-message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button class="form-submit" type="submit">Send</button>
+                </form>
+
+            </div>
+        </section>
+
+        <!-- HARDWARE (commented out — re-enable when ready) -->
+        <!--
+        <section id="hardware" class="section">
+            <span class="page-label">Hardware</span>
+
+            <div class="cv-entry-head">Nunchuck Controller</div>
+            <div class="hardware-project">
+                <img src="../NunchuckAssets/nunchuckPromo.png" alt="Nunchuck Controller">
+                <p class="hardware-desc">
+                    A homemade Wii Nunchuck MIDI adapter that converts sensor data from Wii Nunchucks — joystick, two buttons, and accelerometer (motion sensor) — into MIDI CC messages that can be directly mapped to parameters in any music software.
+                </p>
+            </div>
+        </section>
+        -->
+
+        <!-- ABOUT (commented out — re-enable when ready) -->
+        <!--
+        <section id="about" class="section">
+            <span class="page-label">About</span>
+
+            <p class="about-text">
+                Solomon Rosenthal (also known as Iris Ipsum and Glyss) is a Los Angeles based musician, visual artist, and software designer.
+            </p>
+        </section>
+        -->
+
+    </main>
+</div><!-- /.site -->
+
+<!-- ── LIGHTBOX ──────────────────────────────────────── -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lb-close">close</button>
+    <button class="lightbox-prev" id="lb-prev">&#8592;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+    <button class="lightbox-next" id="lb-next">&#8594;</button>
+</div>
+
+<!-- ── THREE.JS CANVAS ───────────────────────────────── -->
+<div id="background"></div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════ -->
+<script>
+
+/* ═══════════════════════════════════════════════════════
+   MUSIC — RELEASE DATA
+   ───────────────────────────────────────────────────────
+   To add a release: add an object to the array below.
+   For each platform link, update the "url" field.
+   Platforms: Spotify, Apple Music, SoundCloud, Bandcamp
+═══════════════════════════════════════════════════════ */
+const releases = [
+    {
+        artist: "Glyss",
+        title: "Eternal Return",
+        year: "2025",
+        labels: [
+            { name: "Pleasure Tapes", url: "https://pleasuretapes.bandcamp.com" },
+            { name: "Candlepin Records", url: "https://candlepinrecords.bandcamp.com" },
+        ],
+        platforms: [
+            { name: "Spotify",      logo: "../Assets/SpotifyLogo.png",    url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
+            { name: "Apple Music",  logo: "../Assets/AppleMusicLogo.png", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
+            { name: "Bandcamp",     logo: "../Assets/bandcamp-logo.svg",  url: "https://irisipsum.bandcamp.com/" },
+            { name: "SoundCloud",   logo: "../Assets/SoundcloudLogo.png", url: "https://soundcloud.com/irisipsum" },
+        ]
+    },
+    {
+        artist: "Iris Ipsum",
+        title: "Xtilde",
+        year: "2024",
+        labels: [
+            { name: "Satellite Era", url: "https://sat-era.bandcamp.com" },
+        ],
+        platforms: [
+            { name: "Spotify",      logo: "../Assets/SpotifyLogo.png",    url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
+            { name: "Apple Music",  logo: "../Assets/AppleMusicLogo.png", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
+            { name: "Bandcamp",     logo: "../Assets/bandcamp-logo.svg",  url: "https://irisipsum.bandcamp.com/" },
+            { name: "SoundCloud",   logo: "../Assets/SoundcloudLogo.png", url: "https://soundcloud.com/irisipsum" },
+        ]
+    },
+    {
+        artist: "Iris Ipsum",
+        title: "Tensor",
+        year: "2023",
+        labels: [],
+        platforms: [
+            { name: "Spotify",      logo: "../Assets/SpotifyLogo.png",    url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
+            { name: "Apple Music",  logo: "../Assets/AppleMusicLogo.png", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
+            { name: "Bandcamp",     logo: "../Assets/bandcamp-logo.svg",  url: "https://irisipsum.bandcamp.com/" },
+            { name: "SoundCloud",   logo: "../Assets/SoundcloudLogo.png", url: "https://soundcloud.com/irisipsum" },
+        ]
+    },
+    {
+        artist: "Iris Ipsum",
+        title: "Pattern Language",
+        year: "2023",
+        labels: [
+            { name: "Touched Music", url: "https://touched.bandcamp.com" },
+        ],
+        platforms: [
+            { name: "Spotify",      logo: "../Assets/SpotifyLogo.png",    url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
+            { name: "Apple Music",  logo: "../Assets/AppleMusicLogo.png", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
+            { name: "Bandcamp",     logo: "../Assets/bandcamp-logo.svg",  url: "https://irisipsum.bandcamp.com/" },
+            { name: "SoundCloud",   logo: "../Assets/SoundcloudLogo.png", url: "https://soundcloud.com/irisipsum" },
+        ]
+    },
+];
+
+/* ── Render release list ──────────────────────────── */
+const releaseList = document.getElementById('release-list');
+
+releases.forEach((release, i) => {
+    const li = document.createElement('li');
+    li.className = 'release-item';
+
+    // Build label links HTML (only if labels exist)
+    const labelHTML = release.labels && release.labels.length
+        ? `<div class="release-labels">
+               ${release.labels.map(l =>
+                   `<a class="release-label-link" href="${l.url}" target="_blank" rel="noopener">${l.name}</a>`
+               ).join('<span class="release-label-sep">/</span>')}
+           </div>`
+        : '';
+
+    // Build platform links HTML
+    const platformLinks = release.platforms.map(p =>
+        `<a class="platform-link" href="${p.url}" target="_blank" rel="noopener">
+            <img src="${p.logo}" alt="${p.name}">
+            <span>${p.name}</span>
+        </a>`
+    ).join('');
+
+    li.innerHTML = `
+        <button class="release-toggle" aria-expanded="false">
+            <span class="release-meta">
+                <span class="release-artist">${release.artist}</span>
+                <span class="release-title">${release.title}</span>
+            </span>
+            <span class="release-year">${release.year}</span>
+            <span class="release-arrow">&#9650;</span>
+        </button>
+        <div class="release-platforms">
+            ${labelHTML}
+            ${platformLinks}
+        </div>
+    `;
+
+    const toggle = li.querySelector('.release-toggle');
+    toggle.addEventListener('click', () => {
+        const isOpen = li.classList.contains('open');
+        // Close all others
+        releaseList.querySelectorAll('.release-item.open').forEach(el => {
+            el.classList.remove('open');
+            el.querySelector('.release-toggle').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+            li.classList.add('open');
+            toggle.setAttribute('aria-expanded', 'true');
+        }
+    });
+
+    releaseList.appendChild(li);
+});
+
+
+/* ═══════════════════════════════════════════════════════
+   ARTWORK — GALLERY DATA
+   ───────────────────────────────────────────────────────
+   To add a new image: add { src: "path" } to an
+   exhibition's images array.
+
+   To add a new exhibition: copy the object block and
+   add it to the exhibitions array.
+═══════════════════════════════════════════════════════ */
+const exhibitions = [
+    {
+        title: "Material Emission",
+        venue: "Stevenson Blanche Gallery",
+        dates: "April 13–20, 2024",
+        images: [
+            { src: "../ArtImages/IMG_8044.jpeg" },
+            { src: "../ArtImages/IMG_8085.jpeg" },
+            { src: "../ArtImages/IMG_8093.jpeg" },
+            { src: "../ArtImages/IMG_8095.jpeg" },
+            { src: "../ArtImages/IMG_8101.jpeg" },
+            { src: "../ArtImages/IMG_8107.jpeg" },
+            { src: "../ArtImages/IMG_8109.jpeg" },
+            { src: "../ArtImages/IMG_8117.jpeg" },
+            { src: "../ArtImages/IMG_8128.jpeg" },
+            { src: "../ArtImages/IMG_8134.jpeg" },
+            { src: "../ArtImages/IMG_8137.jpeg" },
+            { src: "../ArtImages/IMG_8141.jpeg" },
+        ]
+    },
+    // ── Add more exhibitions below ───────────────────
+    // {
+    //     title: "Exhibition Title",
+    //     venue: "Gallery Name",
+    //     dates: "Month DD–DD, YYYY",
+    //     images: [
+    //         { src: "../ArtImages/your-image.jpeg" },
+    //     ]
+    // },
+];
+
+/* ── Render galleries ──────────────────────────────── */
+// Guard: galleryContainer is null when artwork section is commented out.
+// Wrap in a check so a missing element never crashes the rest of the page.
+const galleryContainer = document.getElementById('gallery-container');
+let allImages = [];
+
+if (galleryContainer) {
+    exhibitions.forEach(show => {
+        const section = document.createElement('div');
+        section.className = 'gallery-show';
+
+        const title = document.createElement('div');
+        title.className = 'gallery-show-title';
+        title.textContent = show.title;
+
+        const meta = document.createElement('div');
+        meta.className = 'gallery-show-meta';
+        meta.textContent = show.venue + ' · ' + show.dates;
+
+        const grid = document.createElement('div');
+        grid.className = 'gallery-grid';
+
+        show.images.forEach(imgData => {
+            const globalIndex = allImages.length;
+            allImages.push(imgData.src);
+            const img = document.createElement('img');
+            img.src = imgData.src;
+            img.alt = '';
+            img.dataset.index = globalIndex;
+            img.addEventListener('click', () => openLightbox(globalIndex));
+            grid.appendChild(img);
+        });
+
+        section.appendChild(title);
+        section.appendChild(meta);
+        section.appendChild(grid);
+        galleryContainer.appendChild(section);
+    });
+}
+
+/* ── Lightbox ──────────────────────────────────────── */
+let currentIndex = 0;
+const lightbox = document.getElementById('lightbox');
+const lbImg    = document.getElementById('lightbox-img');
+
+function openLightbox(index) {
+    currentIndex = index;
+    lbImg.src = allImages[currentIndex];
+    lightbox.classList.add('open');
+}
+function closeLightbox() { lightbox.classList.remove('open'); }
+function prev() {
+    currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+    lbImg.src = allImages[currentIndex];
+}
+function next() {
+    currentIndex = (currentIndex + 1) % allImages.length;
+    lbImg.src = allImages[currentIndex];
+}
+
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', prev);
+document.getElementById('lb-next').addEventListener('click', next);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'Escape')     closeLightbox();
+});
+
+
+/* ═══════════════════════════════════════════════════════
+   PRESS — DATA
+   ───────────────────────────────────────────────────────
+   To add a press item: add an object to the array.
+   Fields: publication, title, url, year
+═══════════════════════════════════════════════════════ */
+const pressItems = [
+    {
+        publication: "Obscure Sound",
+        title: "Glyss — Dissipating / Understanding",
+        url: "https://www.obscuresound.com/2025/03/glyss-dissipating-understanding/",
+        year: "2025"
+    },
+    {
+        publication: "Decay FM",
+        title: "Shoegaze & Dream Pop: March 2025 Top Picks",
+        url: "https://decayfm.com/chart/shoegaze-and-dream-pop-march-2025s-top-listener-picks/",
+        year: "2025"
+    },
+    {
+        publication: "Last Day Deaf",
+        title: "Glyss — Inside My Eyes",
+        url: "https://lastdaydeaf.com/listening-now-glyss-inside-my-eyes/",
+        year: "2025"
+    },
+    {
+        publication: "Last Day Deaf",
+        title: "Glyss — Dissipating",
+        url: "https://lastdaydeaf.com/listening-now-glyss-dissipating/",
+        year: "2025"
+    },
+    {
+        publication: "Thus Blog",
+        title: "Glyss — Eternal Return",
+        url: "https://thusblog.com/blog/glyss-eternal-return",
+        year: "2025"
+    },
+    {
+        publication: "Zona Emergente",
+        title: "Glyss — Understanding",
+        url: "https://www.zonaemergente.com/2025/01/glyss-understanding.html",
+        year: "2025"
+    },
+    {
+        publication: "Rosy Overdrive",
+        title: "New Playlist: December 2024",
+        url: "https://rosyoverdrive.com/2025/01/06/new-playlist-december-2024/",
+        year: "2025"
+    },
+    {
+        publication: "Podcart",
+        title: "Iris Ipsum — Subspace",
+        url: "https://podcart.co/iris-ipsum-subspace/",
+        year: "2024"
+    },
+    {
+        publication: "ADSR Collective",
+        title: "Iris Ipsum's x̃ EP: A Sonic Exploration Beyond Boundaries",
+        url: "https://www.adsrcollective.com/en/latest-news-blog/2024/5/9/iris-ipsums-xtilde-ep-a-sonic-exploration-beyond-boundaries",
+        year: "2024"
+    },
+    {
+        publication: "Palms Out Sounds",
+        title: "From The Mailbox #19",
+        url: "https://www.palmsout.net/2024/from-the-mailbox-19/",
+        year: "2024"
+    },
+    {
+        publication: "ADSR Collective",
+        title: "Transcending Soundscapes: Iris Ipsum's Pattern Language",
+        url: "https://www.adsrcollective.com/en/latest-news-blog/2023/10/25/transcending-soundscapes-iris-ipsums-pattern-language",
+        year: "2023"
+    },
+    {
+        publication: "Igloo Mag",
+        title: "Iris Ipsum — Pattern Language",
+        url: "https://igloomag.com/reviews/iris-ipsum-pattern-language-touched-music",
+        year: "2023"
+    },
+    {
+        publication: "Insight Music",
+        title: "Iris Ipsum's Pattern Language: Genre Fusion and Innovative Sound Design",
+        url: "https://insightmusic.co/iris-ipsums-pattern-language-genre-fusion-and-innovative-sound-design/",
+        year: "2023"
+    },
+    {
+        publication: "Electronica.org.uk",
+        title: "Iris Ipsum's Scatters, Remnants, and Signal 01",
+        url: "https://electronica.org.uk/blog/iris-ipsums-scatters-remnants-and-signal-01-an-introspective-journey-through-idm/",
+        year: "2023"
+    },
+    {
+        publication: "M4L Cookbook",
+        title: "Exploring Iris Ipsum's Euclidian Gate 1.0",
+        url: "https://lame.buanzo.org/max4live_blog/unleashing-rhythmic-patterns-exploring-iris-ipsum-euclidian-gate-10-in-ableton-live.html",
+        year: "2023"
+    },
+];
+
+/* ── Render press list ─────────────────────────────── */
+const pressList = document.getElementById('press-list');
+
+pressItems.forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+        <a href="${item.url}" target="_blank" rel="noopener">
+            <span class="press-publication">${item.publication}</span>
+            <span class="press-title">${item.title}</span>
+            <span class="press-year">${item.year}</span>
+        </a>
+    `;
+    pressList.appendChild(li);
+});
+
+
+/* ═══════════════════════════════════════════════════════
+   NAV — ACTIVE STATE ON SCROLL
+═══════════════════════════════════════════════════════ */
+const navLinks  = document.querySelectorAll('.site-nav a');
+const pageSections = document.querySelectorAll('section[id]');
+
+function updateActiveNav() {
+    const mid = window.innerHeight / 2;
+    let activeId = null;
+
+    pageSections.forEach(s => {
+        const rect = s.getBoundingClientRect();
+        if (rect.top <= mid && rect.bottom >= mid) {
+            activeId = s.id;
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.toggle('active', !!activeId && link.getAttribute('href') === `#${activeId}`);
+    });
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
+
+
+/* ═══════════════════════════════════════════════════════
+   THREE.JS — SCROLL-DRIVEN BACKGROUND SHAPES
+   ───────────────────────────────────────────────────────
+   Each section has its own 3D shape. As you scroll into
+   a section the shape rises up from the bottom of the
+   screen, stays near centre while you're mid-section,
+   then drifts off the top as you scroll away.
+
+   All shapes track their scroll position every frame
+   (even when invisible), so there is never a sudden jump
+   when a new shape becomes active.
+═══════════════════════════════════════════════════════ */
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+
+const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 1000);
+camera.position.z = 5;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+document.getElementById('background').appendChild(renderer.domElement);
+
+/* ── One mesh per section (matches DOM order) ───────── */
+const sectionGeos = [
+    new THREE.BoxGeometry(2, 2, 2),                  // home
+    new THREE.CylinderGeometry(1, 1, 3, 32),         // discography
+    new THREE.SphereGeometry(1.5, 32, 32),           // software
+    new THREE.BoxGeometry(3.5, 2, 1.5),              // cv
+    new THREE.OctahedronGeometry(1.7, 0),            // press
+    new THREE.TorusGeometry(1.4, 0.35, 16, 100),     // contact
+];
+
+const meshes = sectionGeos.map(geo => {
+    const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({
+        color: 0xe8e8e8,
+        transparent: true,
+        opacity: 0
+    }));
+    scene.add(m);
+    return m;
+});
+
+// Each shape's Y is driven directly by how far its section's centre
+// is from the viewport centre — no lerping, no visibility toggling.
+// Shapes scroll in from below, sit at Y=0 while the section is centred,
+// then drift off through the top as you scroll past.
+(function animate() {
+    requestAnimationFrame(animate);
+
+    const vh     = window.innerHeight;
+    const travel = 5;   // Three.js units traversed per viewport height of scroll
+    const fade   = 0.6; // sections within ±0.6 vh of centre are visible
+
+    meshes.forEach((m, i) => {
+        const rect = pageSections[i].getBoundingClientRect();
+        const norm = (rect.top + rect.height / 2 - vh / 2) / vh;
+
+        // Y: positive norm (section below) → shape below; negative (above) → shape above
+        m.position.y = -norm * travel;
+
+        // Opacity fades to 0 once the section centre is more than `fade` vh away
+        m.material.opacity = Math.max(0, 1 - Math.abs(norm) / fade);
+
+        // Keep all shapes spinning so they're already moving when they arrive
+        m.rotation.x += 0.005;
+        m.rotation.y += 0.007;
+    });
+
+    renderer.render(scene, camera);
+})();
+
+window.addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+});
+
+/* ── PERFORMANCE LIST — SEE MORE / SEE LESS ─────────── */
+(function initPerfToggles() {
+    const LIMIT = 5; // entries visible by default per group
+
+    document.querySelectorAll('.perf-list').forEach(list => {
+        const items = Array.from(list.querySelectorAll('li'));
+        if (items.length <= LIMIT) return; // nothing to hide
+
+        // Hide items beyond the limit
+        items.forEach((item, i) => {
+            if (i >= LIMIT) item.classList.add('perf-hidden');
+        });
+
+        // Build the toggle button
+        const btn = document.createElement('button');
+        btn.className = 'perf-toggle';
+        btn.textContent = 'See more';
+        let expanded = false;
+
+        btn.addEventListener('click', () => {
+            expanded = !expanded;
+            items.forEach((item, i) => {
+                if (i >= LIMIT) item.classList.toggle('perf-hidden', !expanded);
+            });
+            btn.textContent = expanded ? 'See less' : 'See more';
+        });
+
+        list.after(btn);
+    });
+})();
+
+</script>
+</body>
+</html>
