@@ -11,13 +11,15 @@
 
 <canvas id="stars"></canvas>
 
-<!-- ── PHYSICS BUTTONS (positioned by JS) ────────────── -->
-<button class="nav-btn phys-btn" data-panel="about">about</button>
-<button class="nav-btn phys-btn" data-panel="discography">discography</button>
-<button class="nav-btn phys-btn" data-panel="software">software</button>
-<button class="nav-btn phys-btn" data-panel="cv">cv</button>
-<button class="nav-btn phys-btn" data-panel="press">press</button>
-<button class="nav-btn phys-btn" data-panel="contact">contact</button>
+<!-- ── NAV BUTTONS ───────────────────────────────────── -->
+<nav class="nav-buttons">
+    <button class="nav-btn" data-panel="about">about</button>
+    <button class="nav-btn" data-panel="discography">discography</button>
+    <button class="nav-btn" data-panel="software">software</button>
+    <button class="nav-btn" data-panel="cv">cv</button>
+    <button class="nav-btn" data-panel="press">press</button>
+    <button class="nav-btn" data-panel="contact">contact</button>
+</nav>
 
 <!-- ── SITE NAME ─────────────────────────────────────── -->
 <div class="site-name">Solomon<br>Rosenthal</div>
@@ -151,7 +153,7 @@
     </div>
     <div class="contact-section">
         <span class="contact-section-label">Email</span>
-        <a class="contact-item" href="mailto:solrosenthal@gmail.com">solrosenthal@gmail.com</a>
+        <a class="contact-item" href="mailto:sol@solrosenthal.com">sol@solrosenthal.com</a>
     </div>
     <div class="contact-section">
         <span class="contact-section-label">Instagram</span>
@@ -170,15 +172,15 @@
 
 <script>
 
-
 /* ═══════════════════════════════════════════════════════
-   STARS — opaque 4-point star shapes
+   STARS — canvas particle animation
 ═══════════════════════════════════════════════════════ */
 (function () {
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
     let W, H, stars = [];
-    const COUNT = 120;
+    const COUNT = 160;
+    let mouse = { x: null, y: null };
 
     function resize() {
         W = canvas.width  = window.innerWidth;
@@ -187,29 +189,13 @@
 
     function mkStar() {
         return {
-            x:     Math.random() * (W || window.innerWidth),
-            y:     Math.random() * (H || window.innerHeight),
-            r:     Math.random() * 3 + 1.2,
-            vx:    (Math.random() - 0.5) * 0.18,
-            vy:    (Math.random() - 0.5) * 0.18,
-            angle: Math.random() * Math.PI,
-            spin:  (Math.random() - 0.5) * 0.005,
+            x: Math.random() * (W || window.innerWidth),
+            y: Math.random() * (H || window.innerHeight),
+            r: Math.random() * 1.1 + 0.2,
+            vx: (Math.random() - 0.5) * 0.22,
+            vy: (Math.random() - 0.5) * 0.22,
+            alpha: Math.random() * 0.6 + 0.3,
         };
-    }
-
-    function drawStar(x, y, r, angle) {
-        // 4-point star: outer radius r, inner radius r*0.35
-        const inner = r * 0.35;
-        const pts = 4;
-        ctx.beginPath();
-        for (let i = 0; i < pts * 2; i++) {
-            const a = angle + (i * Math.PI) / pts;
-            const rad = i % 2 === 0 ? r : inner;
-            if (i === 0) ctx.moveTo(x + Math.cos(a) * rad, y + Math.sin(a) * rad);
-            else         ctx.lineTo(x + Math.cos(a) * rad, y + Math.sin(a) * rad);
-        }
-        ctx.closePath();
-        ctx.fill();
     }
 
     function init() {
@@ -219,227 +205,41 @@
 
     function draw() {
         ctx.clearRect(0, 0, W, H);
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
         stars.forEach(s => {
-            s.vx *= 0.999;
-            s.vy *= 0.999;
-            s.x  += s.vx;
-            s.y  += s.vy;
-            s.angle += s.spin;
-            if (s.x < -s.r)  s.x = W + s.r;
-            if (s.x > W+s.r) s.x = -s.r;
-            if (s.y < -s.r)  s.y = H + s.r;
-            if (s.y > H+s.r) s.y = -s.r;
-            drawStar(s.x, s.y, s.r, s.angle);
+            // drift toward mouse very gently
+            if (mouse.x !== null) {
+                const dx = mouse.x - s.x;
+                const dy = mouse.y - s.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 200) {
+                    s.vx += dx / dist * 0.008;
+                    s.vy += dy / dist * 0.008;
+                }
+            }
+
+            s.vx *= 0.98;
+            s.vy *= 0.98;
+            s.x += s.vx;
+            s.y += s.vy;
+
+            if (s.x < 0) s.x = W;
+            if (s.x > W) s.x = 0;
+            if (s.y < 0) s.y = H;
+            if (s.y > H) s.y = 0;
+
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+            ctx.fill();
         });
         requestAnimationFrame(draw);
     }
 
-    window.addEventListener('resize', resize);
-    init();
-    draw();
-})();
-
-
-/* ═══════════════════════════════════════════════════════
-   PHYSICS BUTTONS — zero gravity, gentle float + bounce
-═══════════════════════════════════════════════════════ */
-(function () {
-    const DAMPING    = 0.85;
-    const FRICTION   = 0.992;
-    const PADDING    = 6;
-    const THROW_MUL  = 0.18;
-    const WANDER_STR = 0.04;  // random nudge each frame
-    const MOUSE_STR  = 0.012; // attraction toward mouse
-    const MOUSE_DIST = 320;   // radius of mouse influence
-    const MAX_SPEED  = 3.5;   // cap so nothing flies off too fast
-
-    const btns = Array.from(document.querySelectorAll('.phys-btn'));
-    let W = window.innerWidth;
-    let H = window.innerHeight;
-    const mouse = { x: null, y: null };
+    window.addEventListener('resize', () => { resize(); });
     window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
-    // Physics bodies
-    const bodies = btns.map((el, i) => {
-        const rect = el.getBoundingClientRect();
-        const w = rect.width  || 80;
-        const h = rect.height || 28;
-        return {
-            el,
-            x: Math.random() * (W - w),
-            y: Math.random() * (H * 0.4),
-            w, h,
-            vx: (Math.random() - 0.5) * 2.5,
-            vy: (Math.random() - 0.5) * 2.5,
-            dragging: false,
-            dragOffX: 0,
-            dragOffY: 0,
-            prevMouseX: 0,
-            prevMouseY: 0,
-        };
-    });
-
-    // Apply initial CSS so buttons are absolutely positioned
-    btns.forEach(el => {
-        const size = Math.random() * 18 + 10; // 10px–28px
-        el.style.position   = 'fixed';
-        el.style.margin     = '0';
-        el.style.zIndex     = '30';
-        el.style.cursor     = 'grab';
-        el.style.userSelect = 'none';
-        el.style.fontSize   = size + 'px';
-        el.style.padding    = (size * 0.45) + 'px ' + (size * 0.9) + 'px';
-    });
-
-    // ── Drag handling ────────────────────────────────────
-    bodies.forEach(b => {
-        b.el.addEventListener('mousedown', e => {
-            e.preventDefault();
-            b.dragging   = true;
-            b.vx = b.vy  = 0;
-            b.dragOffX   = e.clientX - b.x;
-            b.dragOffY   = e.clientY - b.y;
-            b.prevMouseX = e.clientX;
-            b.prevMouseY = e.clientY;
-            b.el.style.cursor = 'grabbing';
-        });
-        b.el.addEventListener('touchstart', e => {
-            const t = e.touches[0];
-            b.dragging   = true;
-            b.vx = b.vy  = 0;
-            b.dragOffX   = t.clientX - b.x;
-            b.dragOffY   = t.clientY - b.y;
-            b.prevMouseX = t.clientX;
-            b.prevMouseY = t.clientY;
-        }, { passive: true });
-    });
-
-    function onMouseMove(e) {
-        bodies.forEach(b => {
-            if (!b.dragging) return;
-            b.vx = (e.clientX - b.prevMouseX) * THROW_MUL;
-            b.vy = (e.clientY - b.prevMouseY) * THROW_MUL;
-            b.x  = e.clientX - b.dragOffX;
-            b.y  = e.clientY - b.dragOffY;
-            b.prevMouseX = e.clientX;
-            b.prevMouseY = e.clientY;
-        });
-    }
-
-    function onMouseUp(e) {
-        bodies.forEach(b => {
-            if (!b.dragging) return;
-            // scale up throw velocity on release
-            b.vx *= 6;
-            b.vy *= 6;
-            b.dragging = false;
-            b.el.style.cursor = 'grab';
-        });
-    }
-
-    function onTouchMove(e) {
-        const t = e.touches[0];
-        bodies.forEach(b => {
-            if (!b.dragging) return;
-            b.vx = (t.clientX - b.prevMouseX) * THROW_MUL;
-            b.vy = (t.clientY - b.prevMouseY) * THROW_MUL;
-            b.x  = t.clientX - b.dragOffX;
-            b.y  = t.clientY - b.dragOffY;
-            b.prevMouseX = t.clientX;
-            b.prevMouseY = t.clientY;
-        });
-    }
-
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup',   onMouseUp);
-    window.addEventListener('touchmove', onTouchMove, { passive: true });
-    window.addEventListener('touchend',  onMouseUp);
-    window.addEventListener('resize',    () => { W = window.innerWidth; H = window.innerHeight; });
-
-    // ── AABB overlap separation ───────────────────────────
-    function separatePair(a, b) {
-        const ax1 = a.x - PADDING, ax2 = a.x + a.w + PADDING;
-        const ay1 = a.y - PADDING, ay2 = a.y + a.h + PADDING;
-        const bx1 = b.x - PADDING, bx2 = b.x + b.w + PADDING;
-        const by1 = b.y - PADDING, by2 = b.y + b.h + PADDING;
-
-        const overlapX = Math.min(ax2, bx2) - Math.max(ax1, bx1);
-        const overlapY = Math.min(ay2, by2) - Math.max(ay1, by1);
-
-        if (overlapX <= 0 || overlapY <= 0) return;
-
-        if (overlapX < overlapY) {
-            const push = overlapX / 2;
-            const sign = a.x < b.x ? -1 : 1;
-            if (!a.dragging) { a.x += sign * push; a.vx += sign * 0.6; }
-            if (!b.dragging) { b.x -= sign * push; b.vx -= sign * 0.6; }
-        } else {
-            const push = overlapY / 2;
-            const sign = a.y < b.y ? -1 : 1;
-            if (!a.dragging) { a.y += sign * push; a.vy += sign * 0.6; }
-            if (!b.dragging) { b.y -= sign * push; b.vy -= sign * 0.6; }
-        }
-    }
-
-    // ── Main loop ─────────────────────────────────────────
-    function tick() {
-        for (let i = 0; i < bodies.length; i++) {
-            const b = bodies[i];
-            if (b.dragging) continue;
-
-            // Random wander nudge
-            b.vx += (Math.random() - 0.5) * WANDER_STR;
-            b.vy += (Math.random() - 0.5) * WANDER_STR;
-
-            // Speed cap
-            const spd = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
-            if (spd > MAX_SPEED) { b.vx = b.vx / spd * MAX_SPEED; b.vy = b.vy / spd * MAX_SPEED; }
-
-            b.vx *= FRICTION;
-            b.vy *= FRICTION;
-            b.x  += b.vx;
-            b.y  += b.vy;
-
-            // Floor
-            if (b.y + b.h > H) { b.y = H - b.h; b.vy = -Math.abs(b.vy) * DAMPING; }
-            // Ceiling
-            if (b.y < 0)        { b.y = 0;        b.vy =  Math.abs(b.vy) * DAMPING; }
-            // Left wall
-            if (b.x < 0)        { b.x = 0;        b.vx =  Math.abs(b.vx) * DAMPING; }
-            // Right wall
-            if (b.x + b.w > W)  { b.x = W - b.w;  b.vx = -Math.abs(b.vx) * DAMPING; }
-        }
-
-        // Button-button collisions
-        for (let i = 0; i < bodies.length; i++) {
-            for (let j = i + 1; j < bodies.length; j++) {
-                separatePair(bodies[i], bodies[j]);
-            }
-        }
-
-        // Apply positions to DOM
-        bodies.forEach(b => {
-            b.el.style.left = b.x + 'px';
-            b.el.style.top  = b.y + 'px';
-        });
-
-        requestAnimationFrame(tick);
-    }
-
-    // Wait one frame so getBoundingClientRect is accurate
-    requestAnimationFrame(() => {
-        bodies.forEach(b => {
-            const rect = b.el.getBoundingClientRect();
-            b.w = rect.width;
-            b.h = rect.height;
-            b.x = Math.random() * Math.max(W - b.w, 1);
-            b.y = Math.random() * Math.max(H - b.h, 1);
-            b.vx = (Math.random() - 0.5) * 2.5;
-            b.vy = (Math.random() - 0.5) * 2.5;
-        });
-        tick();
-    });
+    init();
+    draw();
 })();
 
 
@@ -497,10 +297,10 @@ const releases = [
             { name: "Candlepin Records", url: "https://candlepinrecords.bandcamp.com" },
         ],
         platforms: [
-            { name: "Spotify",     logo: "assets/spotify.svg",     url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
-            { name: "Apple Music", logo: "assets/applemusic.svg", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
-            { name: "Bandcamp",    logo: "assets/bandcamp.svg",   url: "https://irisipsum.bandcamp.com/" },
-            { name: "SoundCloud",  logo: "assets/soundcloud.svg", url: "https://soundcloud.com/irisipsum" },
+            { name: "Spotify",     logo: "../Assets/SpotifyLogo.png",    url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
+            { name: "Apple Music", logo: "../Assets/AppleMusicLogo.png", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
+            { name: "Bandcamp",    logo: "../Assets/bandcamp-logo.svg",  url: "https://irisipsum.bandcamp.com/" },
+            { name: "SoundCloud",  logo: "../Assets/SoundcloudLogo.png", url: "https://soundcloud.com/irisipsum" },
         ]
     },
     {
@@ -511,10 +311,10 @@ const releases = [
             { name: "Satellite Era", url: "https://sat-era.bandcamp.com" },
         ],
         platforms: [
-            { name: "Spotify",     logo: "assets/spotify.svg",     url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
-            { name: "Apple Music", logo: "assets/applemusic.svg", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
-            { name: "Bandcamp",    logo: "assets/bandcamp.svg",   url: "https://irisipsum.bandcamp.com/" },
-            { name: "SoundCloud",  logo: "assets/soundcloud.svg", url: "https://soundcloud.com/irisipsum" },
+            { name: "Spotify",     logo: "../Assets/SpotifyLogo.png",    url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
+            { name: "Apple Music", logo: "../Assets/AppleMusicLogo.png", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
+            { name: "Bandcamp",    logo: "../Assets/bandcamp-logo.svg",  url: "https://irisipsum.bandcamp.com/" },
+            { name: "SoundCloud",  logo: "../Assets/SoundcloudLogo.png", url: "https://soundcloud.com/irisipsum" },
         ]
     },
     {
@@ -523,10 +323,10 @@ const releases = [
         year: "2023",
         labels: [],
         platforms: [
-            { name: "Spotify",     logo: "assets/spotify.svg",     url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
-            { name: "Apple Music", logo: "assets/applemusic.svg", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
-            { name: "Bandcamp",    logo: "assets/bandcamp.svg",   url: "https://irisipsum.bandcamp.com/" },
-            { name: "SoundCloud",  logo: "assets/soundcloud.svg", url: "https://soundcloud.com/irisipsum" },
+            { name: "Spotify",     logo: "../Assets/SpotifyLogo.png",    url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
+            { name: "Apple Music", logo: "../Assets/AppleMusicLogo.png", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
+            { name: "Bandcamp",    logo: "../Assets/bandcamp-logo.svg",  url: "https://irisipsum.bandcamp.com/" },
+            { name: "SoundCloud",  logo: "../Assets/SoundcloudLogo.png", url: "https://soundcloud.com/irisipsum" },
         ]
     },
     {
@@ -537,10 +337,10 @@ const releases = [
             { name: "Touched Music", url: "https://touched.bandcamp.com" },
         ],
         platforms: [
-            { name: "Spotify",     logo: "assets/spotify.svg",     url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
-            { name: "Apple Music", logo: "assets/applemusic.svg", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
-            { name: "Bandcamp",    logo: "assets/bandcamp.svg",   url: "https://irisipsum.bandcamp.com/" },
-            { name: "SoundCloud",  logo: "assets/soundcloud.svg", url: "https://soundcloud.com/irisipsum" },
+            { name: "Spotify",     logo: "../Assets/SpotifyLogo.png",    url: "https://open.spotify.com/artist/3bK04B0wXXWXF1VIvtFEh2" },
+            { name: "Apple Music", logo: "../Assets/AppleMusicLogo.png", url: "https://music.apple.com/us/artist/iris-ipsum/1662032116" },
+            { name: "Bandcamp",    logo: "../Assets/bandcamp-logo.svg",  url: "https://irisipsum.bandcamp.com/" },
+            { name: "SoundCloud",  logo: "../Assets/SoundcloudLogo.png", url: "https://soundcloud.com/irisipsum" },
         ]
     },
 ];
